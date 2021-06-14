@@ -292,11 +292,91 @@ Commonly used HOF: filter, map, reduce, forEach, skip, limit
 filter ==> subset
 
    var products = [
+       
        {"id":1,"name":"iPhone","price":124447.44,"category" : "mobile"},
        {"id":2,"name":"Onida","price":4444.44,"category" : "tv"},
        {"id":3,"name":"OnePlus 6","price":98444.44,"category" : "mobile"},
        {"id":4,"name":"HDMI connector","price":2444.00,"category" : "computer"},
-         {"id":5,"name":"Samsung","price":68000.00,"category" : "tv"}];
+        {"id":5,"name":"Samsung","price":68000.00,"category" : "tv"}];
+
 
 
 map ==> transform
+
+=====================
+
+	HOF ==> function returning a function
+
+Math.random(); not a pure function
+function add(x,y) {} will be a pure function
+
+Pure Function:
+
+function greeting(msg, name) {
+	return msg + " " + name;
+}
+
+greeting("Good Morning", "Peter");
+greeting("Good Morning", "Roger");
+greeting("Good Morning", "Anna");
+
+===
+
+Convert this to HOF with Closure:
+
+function greeting(msg) {
+	return function(name) {
+		return msg + " " + name;
+	}
+}
+
+var morningGreet = greeting("Good Morning");
+
+morningGreet("Raja");
+morningGreet("Rani");
+
+============
+
+Memoize design pattern using closure concept
+
+	function getEmployee(id) {
+		REST call to backend
+	}
+
+	getEmployee(5); ==> Make a REST call pull the data and Cache it on client
+
+	getEmployee(10); ==> Make a REST call pull the data and Cache it on client
+
+	getEmployee(5); read from cache ; don;t make REST call
+
+
+====
+
+	Server sends Response and Etag ==> generated using JSON data
+
+	cache-control
+
+============================================
+
+https://rxmarbles.com/#reduce
+
+Input elems:
+  {"id":1,"name":"iPhone","price":124447.44,"category" : "mobile"},
+       {"id":2,"name":"Onida","price":4444.44,"category" : "tv"},
+       {"id":3,"name":"OnePlus 6","price":98444.44,"category" : "mobile"},
+       {"id":4,"name":"HDMI connector","price":2444.00,"category" : "computer"},
+        {"id":5,"name":"Samsung","price":68000.00,"category" : "tv"}];
+
+Output:
+	sum of all the products :124447.44 + 4444.44 +  98444.44 + ...
+
+	reduce gives a single aggregate value [ sum, count, avg, max, min]
+
+
+
+===============
+
+Resume @2:00
+
+ES 2015
+

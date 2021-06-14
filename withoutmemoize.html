@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function fibanocci(no) {
+            return (no == 0 || no == 1) ? no : fibanocci(no -1) + fibanocci(no-2);
+        }
+
+        console.time("first");
+          console.log(fibanocci(35));
+        console.timeEnd("first");
+
+        console.time("second");
+          console.log(fibanocci(35));
+        console.timeEnd("second");
+
+        console.time("third");
+          console.log(fibanocci(31));
+        console.timeEnd("third");
+    </script>
+</body>
+</html>

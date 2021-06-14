@@ -15,6 +15,34 @@
             var subset = filter(elems, predicate);
 
             iterate(subset, console.log);
+
+            console.log("**********");
+
+            var products = [
+       {"id":1,"name":"iPhone","price":124447.44,"category" : "mobile"},
+       {"id":2,"name":"Onida","price":4444.44,"category" : "tv"},
+       {"id":3,"name":"OnePlus 6","price":98444.44,"category" : "mobile"},
+       {"id":4,"name":"HDMI connector","price":2444.00,"category" : "computer"},
+         {"id":5,"name":"Samsung","price":68000.00,"category" : "tv"}];
+
+
+         // use filter HOF to get only "mobile" type of product
+
+         subset = filter(products, function(prod) {
+            if(prod.category === 'mobile') {
+                return true;
+            } else {
+                return false;
+            }
+
+         });
+
+         iterate(subset, console.log);
+
+         console.log("using map");
+
+         var names = map(products, function(elem) { return elem.name; });
+         iterate(names, console.log);
     </script>
 </body>
 </html>
