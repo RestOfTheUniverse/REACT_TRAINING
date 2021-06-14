@@ -24,3 +24,11 @@ function map(elems, transformFn) {
     });
     return result;
 }
+
+function reduce(identity, elems, reducerFn) {
+    var result = identity;
+    iterate(elems, function(elem){
+        result = reducerFn(result, elem);     
+    });
+    return result;
+}

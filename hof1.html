@@ -41,7 +41,8 @@
 
          console.log("using map");
 
-         var names = map(products, function(elem) { return elem.name; });
+        //  var names = map(products, function(elem) { return elem.name;});
+        var names = map(products, elem => elem.name);
          iterate(names, console.log);
     </script>
 </body>

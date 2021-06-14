@@ -373,10 +373,304 @@ Output:
 	reduce gives a single aggregate value [ sum, count, avg, max, min]
 
 
+document.addEventListener("click", callbackfn);
+
+===============================================
+
+ES 2015 / ES 6 ==> EsNext
+
+ES 5 version is compatabile across JS engines
+
+ECMAScript
+
+
+
+
+ES 2015 / ES 6 ==> Transpiler ==> Lower version of JS --> ES5 or ES3
+
+Transpiler ==> Babel, Tracuer
+
+======================================
+
+ES 6 features:
+1) Block scope variable
+	let and const have block level scope
+
+		var g = 100;
+		const PI = 3.14159; // constant
+		function doTask(x, y) {
+			var result = x + y;
+			if( result > 5 ) {
+				let c = 100; // block scope
+				d = 200;
+			}
+			console.log(g, result, c, d); // c is not visible
+			return result;
+		}
+
+		doTask(4,5);
+
+		console.log(g, result, c, d); // c, result are not visible
+
+2) Arrow operator ==> write lambda functions
+
+ 
+function filter(elems, predicate) {
+    var result = [];
+    iterate(elems, function(elem){
+        if(predicate(elem)) {
+            result.push(elem);
+        }
+    });
+    return result;
+}
+
+Without Arrow:
+ var predicate = function(elem) { return elem % 2 === 0};
+ var subset = filter(elems, predicate);
+
+
+With Arrow Operator:
+var subset = filter(elems, elem => elem %2 == 0);
+
+let add = (x,y) => {
+	return x + y;
+}
+
+OR 
+
+let add = (x,y) => x + y;
+
+3) Destructing // DeConstructing
+	3.1) Arrays
+
+		var colors = ["RED", "GREEN","BLUE","PINK","ORANGE"];
+
+		legacy way:
+
+		var r = colors[0];
+		var g = colors[1];
+
+	ES 6 way:
+
+	let [r,g,...others] = colors;
+
+	3.2) Object
+	let p =	{"id":2,"name":"Onida","price":4444.44,"category" : "tv"};
+	ES5 way:
+	var name = p.name;
+	var price = p.price;
+
+	ES6 way:
+	let {name, price} = p;
+
+	let {name:n, price:amt} = p;
+
+4) Cloning
+	4.1) cloning array
+		Reference:
+
+		var data = [5,6,2];
+
+		var ref = data; // reference
+
+		ref[0] = 55;
+
+		immutablity
+		var data = [5,6,2];
+		var copied = [...data];
+
+	4.2) cloning object
+	let p =	{"id":2,"name":"Onida","price":4444.44,"category" : "tv"};
+	let ref = p; // reference
+
+	ES 5 way:
+	let ref = {};
+	Object.assign(ref,{}, p);
+
+
+
+	let refPrd = {...p}; // copy
+	
+	refPrd.name = 'Sony';
+
+
+	let nObj = {tax:4, ...p};
+
+----------
+
+
+5) Promise API
+
+Asynchonous code ==> returns a defered result ==> REST call, file handling , timers based
+
+Synchronous code:
+
+function doTask() {
+
+}
+
+let res = doTask();
+
+console.log(res); // blocked until doTask() completes
+
+
+ASynchronous code using Promise API:
+
+
+function doTask() {
+	returning a Promise [ resolved or rejected]
+}
+
+
+doTask().then(
+	(happy) => ...,
+	(alternate) ==> ...
+).catch(ex) {
+	console.log(ex);
+}
+
+
+====
+
+fetch("http://jsonplaceholder.typicode.com/users/1") //promise
+	.then(response => response.json()) //promise
+	.then(data => console.log(data));
+
+============================
+
+Promise.all() usecase ==> Aggregator like applications [ MakeMyTrip, HolidayIQ]
+	==> Hotels
+		==> API call to Ginger
+		==> API call to Taj Vivanta:807
+		==> aggregate the results and display
+
+Promise.race()	use case ==> 2 or 3 CD``Ns have same data
+	http:server:8080/products
+	http:server:8081/products
 
 ===============
 
-Resume @2:00
+Nested Callbacks:
+fetch("http://jsonplaceholder.typicode.com/users/1") //promise
+	.then(response => response.json()) //promise
+	.then(data => console.log(data));
 
-ES 2015
+can be avoided using async and await
+
+=========
+
+6) Async and Await ==> to be used on Promise API to convert the code to blocking way
+
+7) Class
+
+class Person {
+	constructor(name = "" , age = 0) {
+		this.name = name;
+		this.age = age;
+	}
+
+	getName() {
+		return this.name;
+	}
+
+	getAge() {
+		return this.age;
+	}
+}
+
+
+let p = new Person("Tim", 55);
+let p = new Person("Tim");
+let p = new Person();
+
+p.getName();
+
+==> internally this is a function constructor with prototype
+
+=============
+
+8) Modules
+
+	JS Module system
+	8.1) IIFE ==> Immediate Invoke Function Expression
+
+		let customerModule = (function() {
+			let a = 10;
+			function doTask() {
+				console.log(a);
+			}
+
+			function some() {
+
+			}
+
+			return {
+				"doTask": doTask,
+				"some" : some
+			}
+		})();
+
+
+		let orderModule = (function() {
+			let a = 90;
+			let b = 100;
+			function doTask() {
+				console.log(a, b);
+			}
+			return {
+				"sample" : doTask
+			}
+		})();
+
+		customerModule.doTask();
+
+		orderModule.sample();
+
+		8.2) CommonJS module system ==> adopted by NodeJS
+		8.3) AMD ==> Asynchrnonous Module Defenition
+
+		 define('myModule', ['dep1', 'dep2'], function (dep1, dep2) {
+
+   			 //Define the module value by returning a value.
+   			 return function () {};
+			});
+
+		8.4) ES 6 Module System
+
+		lib.js
+
+		export  class Person {
+			constructor(name = "" , age = 0) {
+				this.name = name;
+				this.age = age;
+			}
+
+			getName() {
+				return this.name;
+			}
+
+			getAge() {
+				return this.age;
+			}
+		}
+
+		function iterate(elems, action) {
+		   
+		}
+	
+		export default function filter(elems, predicate) {
+		     
+		}
+
+		export function map(elems, transformFn) {
+   
+		}
+
+		other.js
+
+		import {Person, map}, filter from './lib';
+
+		let p = new Person("A", 22);
+
 
