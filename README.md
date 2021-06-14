@@ -674,3 +674,147 @@ p.getName();
 		let p = new Person("A", 22);
 
 
+		import * as MyLib from './lib'
+
+		import * as MyLibExt from './libext'
+
+		MyLib.filter()
+
+		MyLibExt.filter()
+
+=====================
+ 
+Function returns a single member
+Promise returns a defered member
+
+
+9) Generator
+			are used to execute tasks in multiple stages
+			and return multple members ==> each stage different
+	
+	function* tasks() {
+		console.log("one");
+		console.log("two");
+	
+		yield "First output";
+	
+		console.log("three");
+		console.log("four");
+	
+		yield 100;
+	
+		console.log("five");
+		yield {"name": "Phone", "price" : 12345.22}
+	}	
+
+	let iter = tasks();
+
+	iter.next();
+	iter.next();
+	iter.next();
+
+	SAGA Design Pattern
+=======================================
+==> Proxy, Reflection
+
+Event Loop and JS
+
+
+console.log("one");
+
+$("#btn").click(function task1() {
+	console.log("clicked!!!");
+});
+
+console.log("two");
+
+setInterval(function timeout() {
+	console.log("time ..")
+}, 1000);
+
+console.log("three")
+
+================================
+
+Node JS
+--------
+	==> Environment with V8 JS engine
+	==> libraries like libuv ==> helpers for Threads / NIO operations / Async operation
+	==> can be used to write Real time applications like streaming [ OTT ]
+		[ Spring Boot + Netty Reactor + Flux]
+	==> Chatbot	
+	==> NoSQL
+	==> Environment for building client side web application
+	=================> Problems faced
+	========================> 1) Transpile / Compile [ TypeScript / CoffeeScript / Dart / ES6/7]
+
+	========================> 2) Testing
+
+	========================> 3) Static code analyis ==> ESList
+
+	========================> 4) Browserify [ Bundle]
+
+		index.html
+			<script src="lib.js"></script>
+			<script src="jquery.js"></script>
+			<script src="handlebars.js"></script>
+			<script src="loadhash.js"></script>
+			<script src="backbone.js"></script>
+	========
+
+	every nodejs project needs package.json
+	package.json ==> place where we configure scripts
+				==> configure dependencies [ libraries required for production stage]
+				==> configure devDependencies [ libraries required only for development stage]
+
+	Node Package Manager is used to manage dependencies
+
+	npm i jquery
+
+	npm i -D mocha ESLint
+
+	dowloads the modules from repository
+
+	npm config set repository "sgrepo"
+
+	folder "node_modules"
+
+	npm i -g json-server 
+			download into global configured folder for the machine
+				users/username/AppData/Roaming/npm/
+
+	Same as Maven / PIP
+
+	Team member commits only package.json and code to "repo/Git"; not node_modules
+
+	other team members uses : npm i
+
+	====
+
+	NodeJs uses JS build tools for the above tasks : Grunt, Gulp and Webpack
+
+	Grunt is a JavaScript task runner, a tool used to automatically perform frequent tasks such as minification, compilation, unit testing, and linting.
+
+	====================
+
+	webpack:
+	>npm run build-dev
+
+asset bundle.js 6.19 KiB [emitted] (name: main)    
+runtime modules 670 bytes 3 modules
+cacheable modules 1.49 KiB
+  ./src/index.js 173 bytes [built] [code generated]
+  ./src/person.js 1.21 KiB [built] [code generated]
+  ./src/lib.js 113 bytes [built] [code generated]
+
+npm run build-prod
+
+asset bundle.js 589 bytes [emitted] [minimized] (name: main)
+orphan modules 1.18 KiB [orphan] 2 modules
+./src/index.js + 2 modules 1.38 KiB [built] [code generated]
+webpack 5.38.1 compiled successfully in 1673 ms
+
+
+React or Angular by default uses Webpack as bundler
+
+===========================================================
