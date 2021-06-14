@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="lib.js"></script>
+    <script>
+            var elems = [1,2,5,71,77,13,15,80];
+            // iterate(elems, console.log);
+            // iterate(elems, alert);
+            var predicate = function(elem) { return elem % 2 === 0};
+            var subset = filter(elems, predicate);
+
+            iterate(subset, console.log);
+    </script>
+</body>
+</html>

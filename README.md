@@ -211,6 +211,92 @@ OOP with JS
 
 =================
 
+Inhertited methods call() and bind()
 
 
+var person = {
+		"name" : "Reena",
+		"age" : 23,
+		"getName" : function () {
+			return this.name;
+		}
+}
 
+var fn = person.getName; // context of "person" is lost; will use window context
+
+
+fn(); // gets the name of "window" object as in window.name
+
+var ref = person.getName.bind(person); // "person" context is copied
+
+ref(); // name refers to "person" and not window
+
+
+=====
+
+function update(name) {
+	this.name = name;
+}
+
+var person = {
+		"name" : "Reena",
+		"age" : 23,
+		"getName" : function () {
+			return this.name;
+		}
+};
+
+var obj = {"name" : "Some Name"}
+
+update.call(person, "Peter");
+
+update.call(obj,"Rita");
+
+=======================
+
+Functional style of programming
+
+-------------------------------
+SOLID Design Principles
+
+OOP ==> methods tightly coupled to state of object
+	Account has balance; credit() and debit() uses balance
+
+Functional style of Programming ==> leads OCP ==> open Close principle
+	functionality which can be used on any type
+	filter(elems)
+	Functional style of programming uses High Order Function (HOF)
+		==> treat functions as first-class members [ treat functions similar to primitive or object]
+		==> Functions accept function as argument 
+		==> Functions which returns a function
+
+
+		Without HOF:
+		var elems = [1,2,5,71,77,13,15,80];
+
+		for(elem in elems) {
+			console.log(elem);
+		}
+
+
+		for(elem in elems) {
+			alert(elem);
+		}
+
+ 		for(elem in elems) {
+			writeToClient(elem);
+		}
+
+Commonly used HOF: filter, map, reduce, forEach, skip, limit		
+
+filter ==> subset
+
+   var products = [
+       {"id":1,"name":"iPhone","price":124447.44,"category" : "mobile"},
+       {"id":2,"name":"Onida","price":4444.44,"category" : "tv"},
+       {"id":3,"name":"OnePlus 6","price":98444.44,"category" : "mobile"},
+       {"id":4,"name":"HDMI connector","price":2444.00,"category" : "computer"},
+         {"id":5,"name":"Samsung","price":68000.00,"category" : "tv"}];
+
+
+map ==> transform
