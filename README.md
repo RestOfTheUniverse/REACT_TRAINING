@@ -818,3 +818,324 @@ webpack 5.38.1 compiled successfully in 1673 ms
 React or Angular by default uses Webpack as bundler
 
 ===========================================================
+const data =[  
+   {  
+      "name":"Baked Salmon",
+      "ingredients":[  
+         {  
+            "name":"Salmon",
+            "amount":1,
+            "measurement":"l lb"
+         },
+         {  
+            "name":"Pine Nuts",
+            "amount":1,
+            "measurement":"cup"
+         },
+         {  
+            "name":"Butter Lettuce",
+            "amount":2,
+            "measurement":"cups"
+         },
+         {  
+            "name":"Yellow Squash",
+            "amount":1,
+            "measurement":"med"
+         },
+         {  
+            "name":"Olive Oil",
+            "amount":0.5,
+            "measurement":"cup"
+         },
+         {  
+            "name":"Garlic",
+            "amount":3,
+            "measurement":"cloves"
+         }
+      ],
+      "steps":[  
+         "Preheat the oven to 350 degrees.",
+         "Spread the olive oil around a glass baking dish.",
+         "Add the salmon, garlic, and pine nuts to the dish.",
+         "Bake for 15 minutes.",
+         "Add the yellow squash and put back in the oven for 30 mins.",
+         "Remove from oven and let cool for 15 minutes. Add the lettuce and serve."
+      ]
+   },
+   {  
+      "name":"Fish Tacos",
+      "ingredients":[  
+         {  
+            "name":"Whitefish",
+            "amount":1,
+            "measurement":"l lb"
+         },
+         {  
+            "name":"Cheese",
+            "amount":1,
+            "measurement":"cup"
+         },
+         {  
+            "name":"Iceberg Lettuce",
+            "amount":2,
+            "measurement":"cups"
+         },
+         {  
+            "name":"Tomatoes",
+            "amount":2,
+            "measurement":"large"
+         },
+         {  
+            "name":"Tortillas",
+            "amount":3,
+            "measurement":"med"
+         }
+      ],
+      "steps":[  
+         "Cook the fish on the grill until hot.",
+         "Place the fish on the 3 tortillas.",
+         "Top them with lettuce, tomatoes, and cheese."
+      ]
+   }
+];
+
+========
+
+ state = {
+        "customers": [{
+            "id": 1,
+            "firstName": "Rachel",
+            "lastName": "Green ",
+            "gender": "female",
+            "address": "Blore"
+        },
+        {
+            "id": 2,
+            "firstName": "Chandler",
+            "lastName": "Bing",
+            "gender": "male",
+            "address": "West Street"
+        },
+        {
+            "id": 3,
+            "firstName": "Joey",
+            "lastName": "Tribbiani",
+            "gender": "male",
+            "address": "Kattegat"
+        },
+        {
+            "id": 4,
+            "firstName": "Monica",
+            "lastName": "Geller",
+            "gender": "female",
+            "address": "some address"
+        },
+        {
+            "id": 5,
+            "firstName": "Ross",
+            "lastName": "Geller",
+            "gender": "male",
+            "address": "some address "
+        },
+        {
+            "id": 6,
+            "firstName": "Phoebe",
+            "lastName": "Buffay",
+            "gender": "female",
+            "address": "some address"
+        }
+        ],
+    };
+   ===============
+
+
+Day 2:
+======
+
+Recap: JS, Event Loop, Functional Style Of Programming, ES 2015, NodeJS and Webpack
+
+Rendering ==> data into presentation
+
+Server Side Rendering: Presentation pages are served to client => Traditional web application
+==> Servlet Technology [ JSP , Servlet, JSF]
+==> PHP
+==> .NET ==> ASP.NET
+==> JS ==> EJS / JADE / PUG 
+
+Client Side Rendering:
+	Server sends data/representation to client in various formats [ JSON / XML]
+
+	In client machine rendering happens:
+	Evolution of Client side rendering [ web application]
+	1) Plain DOM ==> Document Object model was used
+			var tbl = document.createElement("table");
+			var tr = document.createElement("tr");
+			tbl.append(tr);
+			tr.appendChild("data from server"); ...
+			using XmlHttpRequest ==> used to make AJAX call
+	2) jQuery helped in DOM creation, Navigation and simplify AJAX calls
+			var tbl = $(<table>);
+			var tr = $(<tr>);
+			tbl.append(tr);
+	3) Template based
+		product.template
+				<div class="card">
+					<div class="card_header">
+						{{name}} {{description}}
+					</div>	
+					<img src ="images/{{pic}}" />
+				</div>		
+
+		Expression language and Interpolation
+		Popular Template libraries for JS community: Underscore _firstName , Handlebars # , Mustache {
+
+	Single Page Application challenges:
+		1) Data binding [ one-way, two-way binding]
+		2) Routes
+			Different URIs has to display different views
+			http://server/products/mobiles
+			http://server/products/mobiles/iPhone12
+			http://server/products/tv
+
+			History APIs 
+		3) Performance
+
+	4) Libraries and Frameworks:
+		4.1) Knockout
+		4.2) Backbone
+		4.3) AngularJS
+		4.4) React
+		4.5) Angular
+		4.6) Vue
+
+	Framework: Complete solution ==> Backbone, Angular
+	Library: React
+
+	Angular: [ M V C ]
+		1) Framework
+		2) Google 								
+		3) Two-way binding [ Model <--> View]
+		4) Comes with Dependency Injection Support [ Root level, Module level, ...]
+		5) To manage views uses Zone.js and concept of Partial DOM
+		6) ChangeDetection Policy has to be tweaked in for imporving performance
+		7) Project is based on many modules [ Customer module , Admin Module, TripManagenent]
+
+	React: [ View ]
+		1) View Library
+		2) Facebook
+		3) One-way binding [ Model ---> View ]
+		4) No full fledged DI support; partial
+		5) uses Virtual DOM to render view
+		6) High Performance
+
+Shadow Dom:
+	<CustomerRow class="_ng_content_0">
+		<div class="">
+			{{firstName}}
+		</div>
+	</CustomerRow>
+
+	<div class="row">
+
+	</div>
+
+=========================
+
+React uses Virtual DOM
+
+========================
+
+
+CodePen:
+
+JS Preprocessor ==> Babel
+
+JS dependencies:
+react
+https://cdnjs.cloudflare.com/ajax/libs/react/17.0.2/umd/react.production.min.js
+
+react-dom
+https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.2/umd/react-dom.production.min.js
+
+<div id="root">
+</div>
+
+
+let Welcome = React.createElement("h1", {style: {'color':'red'}}, "Welcome to SG REACT TRG");
+
+ReactDOM.render(Welcome, document.getElementById("root"));
+
+ReactElement: 
+
+This is the primary type in React.
+ReactElement is a light, stateless, immutable, Virtual representation of DOM.
+this make the basic nodes here
+
+Once defined ReactElements can be rendered int o "real" dom
+
+
+=========================================
+
+Functional Components return JSX ==> JavaScript and XML ==> Babel is used as TransCompiler
+{props.title} ==> Interpolation
+
+function Welcome(props) {
+  return <div>
+       	 	<h1>
+           		 {props.title} in {props.name}
+        	</h1>
+   		</div>
+}
+
+ReactDOM.render(<Welcome title="Welcome to React" name="SG" />, document.getElementById("root"));
+
+Parent passes data to children in the form of props:
+props ==> title="Welcome to React" name="SG"
+
+JSX needs a root element
+
+Using Destructing:
+function Welcome({title, name}) {
+  return <div>
+        <h1>
+            {title} in {name}
+        </h1>
+        </div>
+}
+
+ReactDOM.render(<Welcome title="Welcome to React" name="SG" />, document.getElementById("root"));
+
+
+==
+
+function Welcome({title, name}) {
+  return <React.Fragment>
+        <h1>
+            {title} in {name}
+        </h1>
+        <h2>Hello World</h2>
+        </React.Fragment>
+}
+
+ReactDOM.render(<Welcome title="Welcome to React" name="SG" />, document.getElementById("root"));
+
+====
+
+
+React Fragment:
+function Welcome({title, name}) {
+  return <>
+        <h1>
+            {title} in {name}
+        </h1>
+        <h2>Hello World</h2>
+        </>
+}
+
+ReactDOM.render(<Welcome title="Welcome to React" name="SG" />, document.getElementById("root"));
+
+================================
+
+
+
+
