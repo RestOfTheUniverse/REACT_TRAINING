@@ -4,7 +4,6 @@ export default class CustomerRow extends Component {
     
     render() {
         let {id,firstName,lastName} = this.props.customer;
-        console.log(this.props);
         return (
             <div className="row">
                 {firstName} &nbsp; {lastName} &nbsp;
@@ -15,7 +14,7 @@ export default class CustomerRow extends Component {
     }
 
     deleteRow(id) { 
-        console.log("Customer Row", id);
+        // console.log("Customer Row", id);
         this.props.delEvent(id);
     }
 }

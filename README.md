@@ -1171,4 +1171,86 @@ react and reac-dom ==> to create react components and rendering
 To start the application with built-in lite http server
   npm start
 
-  
+ ===========
+ 
+ ==> state and props are immutable
+
+==========================================
+
+Testing
+	==> Unit Testing
+	==> Integration Testing
+	==> E2E testing
+
+JS Unit Testing Frameworks:
+	1) Jasmine
+	2) Mocha
+	3) JEST
+
+	==> Chai assertion libraries [ https://www.chaijs.com/ ]
+
+	Angular ==> Angular Test Bed on top of Jasmine
+	React ==> React Testing Library is a wrapper on top of JEST
+		==> assertion libraries to test React Components
+
+	    <h1>Customer Application</h1> 
+
+
+	 <input type="text" 
+                placeholder="search by name"
+                onChange={(evt) => props.filterEvent(evt.target.value)}/>
+
+     <button type="button" onClick={() => this.deleteRow(id)} >&times;</button>  
+
+	getByXXXX() ==> throws exception if not found
+	
+	queryByXXXX() ==> returns null if not found
+
+	findByXXXX() ==> for Promise based component creation
+
+	getByRole('button')
+	getByText(/customer application/i);
+	getByPlaceHolderText("search by name");
+	getByTestId("someid"); // <div data-testid="someid"></div>
+
+
+	Collections version : getAllByRole('button')
+
+===
+
+npm test
+
+Coverage:
+npm test -- --coverage
+
+===
+
+npm i -D cypress
+
+JavaScript End to End Testing Framework | cypress.io
+
+---
+
+Angular ==> Protractor ==> Selenium
+
+---------------------------------------------
+
+
+npm run cypress
+
+=====================
+
+
+npx create-react-app phoneapp
+
+cd phoneapp
+
+phoneapp> npm i bootstrap styled-components react-router-dom
+
+***********
+
+
+
+
+
+
