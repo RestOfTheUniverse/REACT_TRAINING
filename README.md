@@ -901,51 +901,7 @@ const data =[
 
 ========
 
- state = {
-        "customers": [{
-            "id": 1,
-            "firstName": "Rachel",
-            "lastName": "Green ",
-            "gender": "female",
-            "address": "Blore"
-        },
-        {
-            "id": 2,
-            "firstName": "Chandler",
-            "lastName": "Bing",
-            "gender": "male",
-            "address": "West Street"
-        },
-        {
-            "id": 3,
-            "firstName": "Joey",
-            "lastName": "Tribbiani",
-            "gender": "male",
-            "address": "Kattegat"
-        },
-        {
-            "id": 4,
-            "firstName": "Monica",
-            "lastName": "Geller",
-            "gender": "female",
-            "address": "some address"
-        },
-        {
-            "id": 5,
-            "firstName": "Ross",
-            "lastName": "Geller",
-            "gender": "male",
-            "address": "some address "
-        },
-        {
-            "id": 6,
-            "firstName": "Phoebe",
-            "lastName": "Buffay",
-            "gender": "female",
-            "address": "some address"
-        }
-        ],
-    };
+ 
    ===============
 
 
@@ -1136,6 +1092,83 @@ ReactDOM.render(<Welcome title="Welcome to React" name="SG" />, document.getElem
 
 ================================
 
+	Class Component ==> can have state and behaviour
+
+	Button as component ==> 
+		color, label, size ==> state
+		onClick(), onMouseOver() ==> behaviour
+
+	function Welcome({title, name}) {
+ 	 return <div>
+        <h1>
+            {title} in {name}
+        </h1>
+        </div>
+	}
+
+ReactDOM.render(<Welcome title="Welcome to React" name="SG" />, document.getElementById("root"));
 
 
+	class Welcome extends React.Component {
+		// instance variables
+		constructor(props) {
+			super(props);
+		}
 
+		// instance methods
+		changeMessage(msg) {
+
+		}
+
+		render() { // returns JSX
+			let {title, name} = this.props;
+			return <div>
+       				 <h1>
+           				 {title} in {name}
+       				 </h1>
+       				 </div>
+		}
+	}
+
+==========================================
+Earlier:
+npm install -g create-react-app
+install in "\Users\banuprakash\AppData\Roaming\npm"
+
+create-react-app customerapp
+
+Now:
+
+npx create-react-app customerapp
+
+package.json:
+
+ "dependencies": {
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "4.0.3",
+    "web-vitals": "^1.0.1"
+  }
+
+react and reac-dom ==> to create react components and rendering
+
+"scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+
+  react-scripts internally uses "webpack"
+
+  npm run eject ==> this project will be ejected with webpack based project
+  we can customize webpack.config.js
+
+
+To start the application with built-in lite http server
+  npm start
+
+  
