@@ -4,7 +4,7 @@ import Filter from './Filter';
 
 export default class CustomerList extends Component {
     state = {
-        "customers": [{
+         "customers": [{
             "id": 1,
             "firstName": "Rachel",
             "lastName": "Green ",
@@ -46,7 +46,7 @@ export default class CustomerList extends Component {
             "gender": "female",
             "address": "some address"
         }
-        ],
+        ]
     };
 
     constructor(props) {
@@ -54,12 +54,30 @@ export default class CustomerList extends Component {
         this.state.complete = this.state.customers;
     }
 
+    deleteCustomer(id) {
+        let custs = this.state.customers.filter(c => c.id !== id);
+        this.setState({
+            "customers": custs
+        }, () => console.log(`Customer ${id} deleted`))
+    }
+
+    filterCustomers(txt) {
+        let custs = 
+            this.state.complete.filter(c => c.lastName.toUpperCase().indexOf(txt.toUpperCase()) >= 0);
+            this.setState({
+                "customers": custs
+            })
+    }
+
     render() {
         return (
             <div>
-                <Filter />
+                <Filter filterEvent={this.filterCustomers.bind(this)}/>
                 {
-                    this.state.customers.map(c => <CustomerRow customer={c}  />)
+                    this.state.customers.map(c => <CustomerRow 
+                            customer={c} 
+                            key={c.id}  
+                            delEvent={ (id) => this.deleteCustomer(id)} />)
                 }
             </div>
         )

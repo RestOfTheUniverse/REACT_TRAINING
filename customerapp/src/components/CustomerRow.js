@@ -4,16 +4,18 @@ export default class CustomerRow extends Component {
     
     render() {
         let {id,firstName,lastName} = this.props.customer;
+        console.log(this.props);
         return (
             <div className="row">
                 {firstName} &nbsp; {lastName} &nbsp;
                 {/* <button type="button" onClick={this.deleteRow.bind(this,id)}>&times;</button> */}
-                 <button type="button" onClick={(evt) => this.deleteRow(id)} >&times;</button>  
+                 <button type="button" onClick={() => this.deleteRow(id)} >&times;</button>  
             </div>
         )
     }
 
-    deleteRow(id) {
+    deleteRow(id) { 
         console.log("Customer Row", id);
+        this.props.delEvent(id);
     }
 }
