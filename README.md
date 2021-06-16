@@ -1425,4 +1425,210 @@ Button.js ==> Styled-components
 index.js ==> placed Context Provider
 App.js ==> Configured Routes
 
+========================
 
+
+Making REST API calls from React:
+npm i axios
+
+npx json-server
+{
+    "products":[],
+    "orders" : []
+}
+
+
+start JSON Server:
+npm i -g json-server
+json-server --watch data.json --port 1234
+
+OR
+
+npx json-server --watch data.json --port 1234
+
+==========================
+
+npm build
+
+place the build file on server [ Apache, NginX, Tomcat, IIS]
+
+==================================
+
+
+How to Avoid re-rendering of child components
+
+class Child extends React.Component{
+  render() {
+    console.log("child re-renders!!");
+    return <h1> Child : {this.props.name} </h1>
+  }
+}
+
+class Parent extends React.Component {
+  state = {
+    count : 0,
+    name:"Banu"
+  }
+increment() {
+  this.setState({
+    count : this.state.count + 1
+  })
+}
+render() {
+  console.log("Parent Renders");
+  return <>
+        Parent : {this.state.count} + " : " + {this.state.name} <br />
+        <Child name={this.state.name} /> <br />
+    <button onClick={() => this.increment()}>Inc</button>
+    </>
+}
+}
+
+
+ReactDOM.render(<Parent />, document.getElementById("root"));
+
+===
+
+class Child extends React.Component {
+	  shouldComponentUpdate(nextProps, nextState) {
+	    return JSON.stringify(this.props) !== JSON.stringify(nextProps)
+	  }
+  render() {
+    console.log("child re-renders!!");
+    return <h1> Child : {this.props.name} </h1>
+  }
+}
+
+class Parent extends React.Component {
+  state = {
+    count : 0,
+    name:"Banu"
+  }
+increment() {
+  this.setState({
+    count : this.state.count + 1
+  })
+}
+render() {
+  console.log("Parent Renders");
+  return <>
+        Parent : {this.state.count} + " : " + {this.state.name} <br />
+        <Child name={this.state.name} /> <br />
+    <button onClick={() => this.increment()}>Inc</button>
+    </>
+}
+}
+
+
+ReactDOM.render(<Parent />, document.getElementById("root"))
+===
+
+class Child extends React.PureComponent {
+   render() {
+    console.log("child re-renders!!");
+    return <h1> Child : {this.props.name} </h1>
+  }
+}
+
+class Parent extends React.Component {
+ 	increment() {
+	}
+}
+
+====================================================================
+
+React Hooks ==> React 16.6 version onwards
+
+Using this we can have functional components with all the capabilities of class Component
+
+
+class Component ==> state and behaviour and life-cycle methods
+
+React Hooks:
+1) useState
+	helps to have state in functional components
+
+	function App() {
+  			let [count,setCount] = React.useState(0);
+  			let [user, setUser] = React.useState("Banu");
+
+
+  	class App extends React.Component {
+  			state = {
+  				count : 0,
+  				user: "Banu"
+  			}
+
+  			setCount(count) {
+  				this.setState({
+  					count: count
+  				})
+  			}
+
+  			setUser(user) {
+  				this.setState({
+  					"user": user
+  				})
+  			}
+  	}
+
+  	====
+  	useState Example:
+
+  	function App() {
+		  let [count,setCount] = React.useState(0);
+		  let [user, setUser] = React.useState("Banu");
+		  return (
+		    <>
+		      Count {count} <br />
+		      User {user} <br />
+		      <button onClick={() => setCount(count + 1)}>Click</button>
+		    </>
+		  )
+	}
+	ReactDOM.render(<App />, document.getElementById("root"));
+
+
+2) useReducer Hook
+	 ==> if state is complex and conditional mutation
+
+let initialState = {count:0};
+
+let countReducer  = (state, action) => {
+  switch(action.type) {
+    case "INCREMENT" : return {count : state.count + action.payload};
+    case "DECREMENT" : return {count : state.count  - 1 };
+    default : return state;
+  }
+}
+
+function App() {
+  let [state,dispatch] = React.useReducer(countReducer, initialState);
+  
+  function doIncrement() {
+    let action = {"type": "INCREMENT", payload: 10};
+    dispatch(action);
+  }
+  
+  return (
+    <>
+      Count {state.count} <br />
+     
+      <button onClick={doIncrement}>Increment</button>
+    </>
+  )
+}
+ReactDOM.render(<App />, document.getElementById("root"));
+
+=======================
+
+let initialState = { cart: [], total : 0};
+
+
+let countReducer  = (state, action) => {
+  switch(action.type) {
+    case "ADD_TO_CART" : return {cart : state.cart.push(action.payload), total : computedvalue};
+    case "REMOVE_FROM_CART" : return {cart : state.cart.slice(...)  };
+    default : return state;
+  }
+}

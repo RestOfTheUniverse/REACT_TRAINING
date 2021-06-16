@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import {storeProducts, detailProduct} from '../data';
+// import {storeProducts, detailProduct} from '../data';
+import axios from 'axios';
 
 const ProductContext = React.createContext();
 
@@ -20,15 +21,21 @@ class ProductProvider extends Component {
     componentDidMount(){
         this.setProducts();
     }
-    setProducts = () => {
-        let prds = [];
-       storeProducts.forEach(p => {
-            prds.push({...p});
-       });
-       this.setState({
-           "products": prds,
-           "detailProduct": detailProduct
-       })       
+    setProducts = async () => {
+    //     let prds = [];
+    //    storeProducts.forEach(p => {
+    //         prds.push({...p});
+    //    });
+    //    this.setState({
+    //        "products": prds,
+    //        "detailProduct": detailProduct
+    //    })     
+        let response =  await axios.get('http://localhost:1234/products');  
+        let prds = await response.data;
+        this.setState({
+            "products": prds,
+            "detailProduct": prds[0]
+        })
     }
 
     getItem =(id) => {
@@ -78,7 +85,17 @@ class ProductProvider extends Component {
     }
 
     checkOut = () => {
-        
+        let order = {};
+        order.subTotal = this.state.subTotal;
+        order.total = this.state.total;
+        axios.post('http://localhost:1234/orders', {"email":"banu@gmail.com", "cart": order}).then(res => {
+            console.log(res);
+            this.setState({
+                cart: [],
+                total:0.0,
+                subTotal: 0.0
+            })
+        })
     }
 
 
@@ -101,14 +118,15 @@ class ProductProvider extends Component {
     }
     render() {
         return (
-            <ProductContext.Provider value={{
+            <ProductContext.Provider value = {{
                 ...this.state,
                 handleDetail: this.handleDetail,
                 addToCart: this.addToCart,
                 increment: this.increment,
                 decrement: this.decrement,
                 removeItem : this.removeItem,
-                clearCart: this.clearCart
+                clearCart: this.clearCart,
+                checkOut: this.checkOut
             }}>
                 {this.props.children}                
             </ProductContext.Provider>
