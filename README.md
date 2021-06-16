@@ -1276,11 +1276,6 @@ React Testing Library for Unit Testing and Cypress for E2E
 Day 3: 
 
 -----
-npx create-react-app phoneapp
-
-cd phoneapp
-
-phoneapp> npm i bootstrap styled-components react-router-dom
 
 React Life Cycle:
 
@@ -1348,3 +1343,86 @@ class Second extends React.Component {
 ReactDOM.render(<App/>, document.getElementById("root"));
 
 ===============
+
+
+class App extends React.Component {
+  render() {
+    return <PersonProvider>
+    		  <CartProvider>
+              <First />
+    		</CartProvider>
+        		<Test/>
+      		<Best/>
+      </PersonProvider>
+  }
+}
+
+=======================
+
+PhoneApp:
+	1) React Context
+	2) React Router DOM
+	3) font-awesome for icons
+	4) styled-components -- for better HTML elements [ wrapped as React Element] ==> Button
+	5) Bootstrap ==> Response Web Design
+
+npx create-react-app phoneapp
+
+cd phoneapp
+
+phoneapp> npm i bootstrap styled-components react-router-dom
+
+==> Download "share.zip"
+	https://github.com/BanuPrakash/SG_REACT/blob/main/share.zip
+	extract the file
+	1) copy "data.js" into src folder
+	2) Overwrite "App.css"
+	3) copy "img" folder into "public"
+
+components:
+1) Navbar.js
+2) ProductList.js
+4) Cart.js
+http://localhost:3000/details/3
+http://localhost:3000/details/4
+6) Details.js
+7) Default.js
+
+3) Product.js
+5) CartList.js
+
+Copy "Button.js" and "Context.js" from "share" into "components" folder.
+Overwrite "Navbar.js"
+
+const Title = styled.h1`
+  font-size: 1.5em;
+  text-align: center;
+  color: palevioletred;
+`;
+
+function Title(props) {
+	return <h1 {...props} >
+			{props.children}
+		</h1>
+}
+
+Navbar.js
+Link is Router API just to update the component based on Route Path
+<Link to="/" className="nav-link">   
+                    Products
+</Link>
+
+Full Page reloads:
+<a href="/">
+	Products
+</a>
+
+===
+
+Navbar.js uses Bootstrap and "Link" of react-router-dom
+Context.js ==> setting state by getting data from data.js; configure Provider
+Button.js ==> Styled-components
+index.js ==> placed Context Provider
+App.js ==> Configured Routes
+
+
