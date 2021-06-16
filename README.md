@@ -1239,18 +1239,112 @@ Angular ==> Protractor ==> Selenium
 npm run cypress
 
 =====================
+ 
+    <link href="https://fonts.googleapis.com/css?family=Oswald|Permanent+Marker&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    
+    
 
 
+*******************************
+
+Day 2 Recap:
+
+React.createElement()
+functional component
+class component
+props ==> mechanism using which data can be passed from parent to child
+state ==> component specific data
+
+state & props are immutable
+
+replace the key with new data value
+this.setState({
+	"key": value
+})
+
+console.log(state value ==> may not be set)
+
+Event Handling with react components ==> onEventName() = {() => this.functionName()}
+
+onEventName={this.functionName.bind(this)}
+
+React Testing Library for Unit Testing and Cypress for E2E
+
+============================================
+
+Day 3: 
+
+-----
 npx create-react-app phoneapp
 
 cd phoneapp
 
 phoneapp> npm i bootstrap styled-components react-router-dom
 
-*******************************
+React Life Cycle:
 
-	
+ReactContext ==> Centralized store for State [ React 16.6 version introduced this as state management util]	
 
+	<PersonProvider>
+			<A/>
+			<B/>
+			<C/>
+	</PersonProvider>
+===
 
+let PersonContext = React.createContext();
 
+class PersonProvider extends React.Component {
+  componentDidMount() {
+    this.setState({
+      "name": "Banu",
+      "email" : "someemail",
+      "updateEmail" : this.updateEmail.bind(this)
+    });
+  }
+  updateEmail(email) {
+    this.setState({"email": email});
+  }
+  
+  render() {
+    return <PersonContext.Provider value={{...this.state}}>
+          {this.props.children}
+      </PersonContext.Provider>
+  }
+}
 
+class App extends React.Component {
+  render() {
+    return <PersonProvider>
+              <First />
+      </PersonProvider>
+  }
+}
+
+function First() {
+  return <> I am First !!! <Second /></>
+}
+
+class Second extends React.Component {
+  render() {
+    return <PersonContext.Consumer>
+      {
+          value => {
+            return <>
+                    Name : {value.name} <br />
+                    Email : {value.email} <br />
+                    <button type="button" 
+                          onClick={()=>value.updateEmail("me@gmail.com")}>
+                        Change
+                  </button>
+                  </>
+          }     
+      }
+     </PersonContext.Consumer>
+  }
+}
+
+ReactDOM.render(<App/>, document.getElementById("root"));
+
+===============
