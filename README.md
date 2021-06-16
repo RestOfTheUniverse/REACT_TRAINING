@@ -1247,9 +1247,9 @@ cd phoneapp
 
 phoneapp> npm i bootstrap styled-components react-router-dom
 
-***********
+*******************************
 
-
+	
 
 
 
