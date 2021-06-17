@@ -1632,3 +1632,426 @@ let countReducer  = (state, action) => {
     default : return state;
   }
 }
+
+=================================
+
+
+Day 4:
+
+-------
+
+Day 3: 
+Context, Styled-components, React-Router-dom [ BrowserRouter, Route, Switch, Link (History API rather than "<a> for links")]
+
+React Hooks:
+1) useState [ for simple state values - mostly primitive types]
+2) useReducer [ complex data and computation based on criteria]
+		Reducer is a function which takes state and action and returns back the copy of state after mutation
+
+		actions are simple json with {"type": ... , payload}
+
+		How to call Reducer ==> dispatch(action) ==> invokes Reducer
+
+		let [state, dispatch] = React.useReducer(initialState);
+
+3) useEffect 
+		is used to invoke side-effects [ async like API calls and timers] in functional components,
+		generally done in component life-cycle methods of class methods
+		componentDidMount(), componentDidUpdate()
+
+		function App() {
+		  let [count, setCount] = React.useState(0);
+		  let [user, setUser] = React.useState("");
+		  
+		  React.useEffect(() => {
+		      console.log("Called effect 1 ", count);
+		  });
+		  
+		   React.useEffect(() => {
+		      console.log("Called effect 2 ", count);
+		  }, []);
+		  
+		   React.useEffect(() => {
+		      console.log("Called effect 3 ", count);
+		  }, [user]);
+		  
+		  function inc() {
+		    setCount(count + 1);
+		  }
+		  return (
+		    <>
+		        Count {count} <br />
+		       <button onClick={inc}> Click</button>
+		    </>
+		  )
+		}
+
+		ReactDOM.render(<App />, document.getElementById("root"))
+
+4) Memo
+	
+function Child(props) {
+   console.log("child re-renders!!");
+    return <h1> Child : {props.name} </h1>
+}
+
+class Parent extends React.Component {
+  state = {
+    count : 0,
+    name:"Banu"
+  }
+increment() {
+  this.setState({
+    count : this.state.count + 1
+  })
+}
+render() {
+  console.log("Parent Renders");
+  return <>
+        Parent : {this.state.count} + " : " + {this.state.name} <br />
+        <Child name={this.state.name} /> <br />
+    <button onClick={() => this.increment()}>Inc</button>
+    </>
+}
+}
+
+
+ReactDOM.render(<Parent />, document.getElementById("root"));
+
+-=-----
+
+
+function Child(props) {
+   console.log("child re-renders!!");
+    return <h1> Child : {props.name} </h1>
+}
+
+const MemoChild = React.memo(Child);
+
+class Parent extends React.Component {
+  state = {
+    count : 0,
+    name:"Banu"
+  }
+increment() {
+  this.setState({
+    count : this.state.count + 1
+  })
+}
+render() {
+  console.log("Parent Renders");
+  return <>
+        Parent : {this.state.count} + " : " + {this.state.name} <br />
+        <MemoChild name={this.state.name} /> <br />
+    <button onClick={() => this.increment()}>Inc</button>
+    </>
+}
+}
+
+
+ReactDOM.render(<Parent />, document.getElementById("root"));
+
+====
+
+function applyEquals(props, nextProps) {
+	...
+}
+
+const MemoChild = React.memo(Child, applyEquals);
+
+===
+
+5) useCallback() is to memorize a function
+
+
+function Title() {
+  console.log('Rendering Title')
+  return (
+    <h2>
+      Example: Title
+    </h2>
+  )
+};
+
+
+function Button({ handleClick, children }) {
+  console.log('Rendering button - ', children)
+  return (
+    <button onClick={handleClick}>
+      {children}
+    </button>
+  )
+}
+
+function Count({ text, count }) {
+	console.log(`Rendering ${text}`)
+	return <div>{text} - {count}</div>
+}
+
+
+function ParentComponent() {
+	const [age, setAge] = React.useState(25)
+	const [salary, setSalary] = React.useState(50000)
+
+	 const incrementAge = () => {
+		setAge(age + 1)
+	};
+
+	const incrementSalary = () => {
+   		setSalary(salary + 1000)
+	}
+  
+	return (
+		<div>
+			<Title />
+			<Count text="Age" count={age} />
+			<Button handleClick={incrementAge}>Increment Age</Button>
+			<Count text="Salary" count={salary} />
+			<Button handleClick={incrementSalary}>Increment Salary</Button>
+		</div>
+	)
+}
+
+ReactDOM.render(<ParentComponent/>, document.getElementById("app"));
+
+===
+with Memo:
+
+
+function Title() {
+  console.log('Rendering Title')
+  return (
+    <h2>
+      Example: Title
+    </h2>
+  )
+};
+
+const MemoTitle = React.memo(Title);
+
+function Button({ handleClick, children }) {
+  console.log('Rendering button - ', children)
+  return (
+    <button onClick={handleClick}>
+      {children}
+    </button>
+  )
+}
+
+const MemoButton = React.memo(Button);
+
+function Count({ text, count }) {
+	console.log(`Rendering ${text}`)
+	return <div>{text} - {count}</div>
+}
+
+const MemoCount = React.memo(Count);
+
+function ParentComponent() {
+	const [age, setAge] = React.useState(25)
+	const [salary, setSalary] = React.useState(50000)
+
+	 const incrementAge = () => {
+		setAge(age + 1)
+	};
+
+	const incrementSalary = () => {
+   		setSalary(salary + 1000)
+	}
+  
+	return (
+		<div>
+			<MemoTitle />
+			<MemoCount text="Age" count={age} />
+			<MemoButton handleClick={incrementAge}>Increment Age</MemoButton>
+			<MemoCount text="Salary" count={salary} />
+			<MemoButton handleClick={incrementSalary}>Increment Salary</MemoButton>
+		</div>
+	)
+}
+
+ReactDOM.render(<ParentComponent/>, document.getElementById("root"));
+
+===
+useCallback:
+Pass an inline callback and an array of dependencies. 
+useCallback will return a memoized version of the callback that only changes if one of the dependencies has changed. This is useful when passing callbacks to optimized child components that rely on reference equality to prevent unnecessary renders
+
+
+const incrementAge = React.useCallback(() => { 
+		setAge(age + 1)
+	}, [age]); 
+
+	const incrementSalary = React.useCallback(() => {
+   		setSalary(salary + 1000)
+	}, [salary]);
+
+===
+
+Final code for useCallback:
+
+
+function Title() {
+  console.log('Rendering Title')
+  return (
+    <h2>
+      Example: Title
+    </h2>
+  )
+};
+
+const MemoTitle = React.memo(Title);
+
+function Button({ handleClick, children }) {
+  console.log('Rendering button - ', children)
+  return (
+    <button onClick={handleClick}>
+      {children}
+    </button>
+  )
+}
+
+const MemoButton = React.memo(Button);
+
+function Count({ text, count }) {
+	console.log(`Rendering ${text}`)
+	return <div>{text} - {count}</div>
+}
+
+const MemoCount = React.memo(Count);
+
+function ParentComponent() {
+	const [age, setAge] = React.useState(25)
+	const [salary, setSalary] = React.useState(50000)
+
+	 const incrementAge = React.useCallback(() => { 
+		setAge(age + 1)
+	}, [age]); 
+
+	const incrementSalary = React.useCallback(() => {
+   		setSalary(salary + 1000)
+	}, [salary]);
+  
+	return (
+		<div>
+			<MemoTitle />
+			<MemoCount text="Age" count={age} />
+			<MemoButton handleClick={incrementAge}>Increment Age</MemoButton>
+			<MemoCount text="Salary" count={salary} />
+			<MemoButton handleClick={incrementSalary}>Increment Salary</MemoButton>
+		</div>
+	)
+}
+
+ReactDOM.render(<ParentComponent/>, document.getElementById("root"));
+
+
+===
+
+6) useContext()
+
+Using Context in Functional Components
+
+const NumberContext = React.createContext();
+
+
+
+function App() {
+		return (
+				<NumberContext.Provider value={24}>
+						<div>
+							<Display />
+						</div>
+				</NumberContext.Provider>
+		)
+}
+function Dispay() {
+	return(
+		<NumberContext.Consumer>
+			{
+				value => <div> {value} </div>
+			}
+		</NumberContext.Consumer>
+	)
+}
+
+Display using "useContext" ==> helps using Context without Consumer code;
+
+function Dispay() {
+	const data = React.useContext(NumberContext);
+	return <div> {data} </div>
+}
+
+Using multiple providers:
+
+function HeaderComponent() {
+	const user = React.useContext(CurrentUser);
+	const notifications = React.useContext(Notifications);
+	return (
+		<header>
+				Welcome, {user.name} <br />
+				You have {notifications.length} notifications
+		</header>
+	)
+}
+
+-------------------------
+
+7) createRef();
+		==> get a pointer
+
+	class App extends React.Component {
+		emailRef = React.createRef(); // reference
+
+		render() {
+				return (
+					<>
+						<input type="text" ref={this.emailRef} />
+						<button onClick={() => this.doTask()}> Click </button>
+					</>
+				)
+		}
+
+		doTask() {
+			console.log(this.emailRef.current.value);
+			this.emailRef.current.focus();
+		}
+	}
+
+	ReactDOM.render(<App/> , document.getElementById("app"));
+
+	========
+
+	PrimeReact; KendoUI; D3.js; Chart.js
+
+8) forwardRef
+	==> create a refernce and forward the reference to child components [ KendoUI/ PrimeReact / ]
+
+	const EmailInput = React.forwardRef( (props, ref) => {
+			<input type="text" ref={ref} {...props} />
+	})
+
+
+	class App extends React.Component {
+		emailRef = React.createRef(); // reference
+
+		render() {
+				return (
+					<>
+						<EmailInput ref={this.emailRef} />
+						<button onClick={() => this.doTask()}> Click </button>
+					</>
+				)
+		}
+
+		doTask() {
+			console.log(this.emailRef.current.value);
+			this.emailRef.current.focus();
+		}
+	}
+
+	ReactDOM.render(<App/> , document.getElementById("app"));
+
+============
+
+
