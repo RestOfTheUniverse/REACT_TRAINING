@@ -2080,3 +2080,130 @@ function HeaderComponent() {
  		<button onClick={() => setState(state + 1)}>Click</button>
  	</>
  }
+
+ ===================================================
+
+ High Order Components: accept component and returns a component
+ Why?
+ 	1) to introduce new props and behaviour
+ 	2) conditionally return component
+
+ 	class DivComponent extends React.Component {
+ 		render() {
+ 		return <>
+ 				count {this.props.count} <br />
+ 				<button type="button" onClick={() => this.props.increment()}> Click </button>
+ 			</>
+ 		}
+ 	}
+
+ 	const withCounter = (WrappedComponent) => {
+ 		return class extends React.Component {
+ 			constructor(props) {
+ 				super(props);
+ 				this.state = {
+ 					count : 0
+ 				}
+ 			}
+
+ 			increment = () => {
+ 				this.setState({
+ 					count : this.state.count + 1
+ 				})
+ 			}
+
+ 			render() {
+ 				return <WrappedComponent count = {this.state.count} increment={this.increment} />
+ 			}
+ 		}
+ 	}
+
+ 	const DivWithCounter = withCounter(DivComponent);
+ 
+ 	function App() {
+ 			return <DivWithCounter/>
+ 	}
+ 	
+	ReactDOM.render(<App/> , document.getElementById("root"));
+
+
+========
+
+render() {	
+				if(this.props.isLoading) {
+					return <img src =".."/>
+				} else {
+ 						return <WrappedComponent count = {this.state.count} increment={this.increment} />
+ 				}
+ 			}
+
+
+ 	ParentComponent {
+ 		this.state.isLoading = true;
+ 		componentDidMount() {
+ 				API all
+ 				isLoading to true
+ 		}
+ 	}
+
+=============================================================
+
+ErrorBoundary Component
+	is any component which overrides one of the below:
+		componentDidCatch(error, erroInfo){
+
+		}
+
+		static getDerivedStateFromError() {
+			return { hasError : true}
+		}
+
+	Example:
+		class AppErrorBoundary extends React.Component {
+			state = {
+				hasError: false,
+				error: null,
+				errorInfo: ""
+			}
+
+			componentDidCatch(error, erroInfo){
+				this.setState({
+							hasError: true,
+							error: error
+							errorInfo: erroInfo
+					})
+			}
+
+			render() {
+				if(this.state.hasError) {
+					return <>
+								<div> Boom :-( </div>
+								{this.state.errorInfo}
+							</>
+				} else {
+					return this.props.children
+				}
+			}
+		}
+
+		function App() {
+			return <AppErrorBoundary>
+						<A/>
+						<B/>
+						<C/>
+
+			</AppErrorBoundary>
+		}
+===================
+
+Redux and State Management
+
+shopping-list-base.zip == > extract ==> npm i
+
+shopping-list-base> npm i redux react-redux redux-logger
+
+===================
+
+
+ 
+		
