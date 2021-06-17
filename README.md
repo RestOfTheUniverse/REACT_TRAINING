@@ -2202,7 +2202,58 @@ shopping-list-base.zip == > extract ==> npm i
 
 shopping-list-base> npm i redux react-redux redux-logger
 
-===================
+==========================================================
+
+ 
+Best for performance use Redux as central store ==> take into different ReactContext ==> use this to prevent intermediate props
+
+============================
+
+import './App.css';
+
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import Navbar from './components/Navbar';
+import ProductList from './components/ProductList';
+ 
+import Details from './components/Details';
+import Default from './components/Default';
+
+const Cart = lazy(() => import('./components/Cart'));
+
+function App() {
+  return (
+    <>
+      <Router>
+        <Navbar/>
+        <Switch>
+          <Route path="/products" component={ProductList} />
+          <Route path="/cart" component={Cart} />
+          <Route path="/details/:id" component={Details} />
+          <Route exact path="/" component={ProductList} />
+          <Route default component={Default} />
+        </Switch>
+      </Router>
+    </>
+  );
+}
+
+export default App;
+
+
+main.chunk.js 
+
+With Lazy ==> main.chunk.js is minus Cart module
+
+When Cart link is clicked it loads the "cart" module
+
+
+======
+
+Next.js [part of code is rendered on server ]
+and React.js [ client side rendering ]
+
+==============
+
 
 
  

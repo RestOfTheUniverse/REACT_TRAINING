@@ -3,9 +3,11 @@ import './App.css';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import Navbar from './components/Navbar';
 import ProductList from './components/ProductList';
-import Cart from './components/Cart';
+ 
 import Details from './components/Details';
 import Default from './components/Default';
+
+const Cart = lazy(() => import('./components/Cart'));
 
 function App() {
   return (
@@ -25,3 +27,10 @@ function App() {
 }
 
 export default App;
+
+
+main.chunk.js 
+
+With Lazy ==> main.chunk.js is minus Cart module
+
+When Cart link is clicked it loads the "cart" module
