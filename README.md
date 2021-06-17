@@ -2255,6 +2255,11 @@ and React.js [ client side rendering ]
 ==============
 
 
+LINKS:
+https://etherpad.opendev.org/p/advjava
+https://codepen.io/sandeshkota/pen/abJXdmm?editors=1111
+https://primefaces.org/primereact/showcase/#/setup
+https://github.com/johnpapa/angular-styleguide
 
  
 		
