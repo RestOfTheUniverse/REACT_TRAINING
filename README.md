@@ -2054,4 +2054,29 @@ function HeaderComponent() {
 
 ============
 
+ Building Your own hooks: ==> customize Hooks
 
+ function useWindowLocalState(key, defValue) {
+ 	const [state,setState] =  React.useState( () => {
+ 		let value;
+ 		try {
+ 			value = JSON.parse(window.localStorage.getItem("key")) || String(defValue)
+ 		} catch(error) {
+ 			value = String(defValue);
+ 		}
+ 	});
+
+ 	React.useEffect(() => {
+ 		window.localStorage.setItem(key,state);
+ 	}, [state]);
+
+ 	return [state,setState];
+
+ }
+
+ function App() {
+ 	const [state,setState] = useWindowLocalState("app-state", 0);
+ 	return <>
+ 		<button onClick={() => setState(state + 1)}>Click</button>
+ 	</>
+ }
